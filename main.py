@@ -59,18 +59,22 @@ def main():
 
 	nn = BinaryToDecimalNN(input_size)
 
-	if not os.path.exists("./model/"):
+	if not os.path.exists('model.h5'):
 		# Train the model
 		binary_inputs, decimal_outputs = generate_binary_data(min_length, max_length, num_samples)
-		nn.train(binary_inputs, decimal_outputs, epochs=200)
-		nn.save("./model/")
-	nn.load("./model/")
+		nn.train(binary_inputs, decimal_outputs, epochs=100)
+		nn.save('model.h5')
+	nn.load('model.h5')
 
 	# Test the model with new binary inputs
 	test_inputs = generate_binary_data(min_length, max_length, 10)[0]
+	num_correct = 0
 	for binary_input in test_inputs:
 		decimal_output = nn.predict(binary_input.zfill(input_size))
 		print(f'Binary: {binary_input}, Decimal: {decimal_output}')
+		if decimal_output == int(binary_input, 2):
+			num_correct += 1
+	print(f'Accuracy: {num_correct}/{len(test_inputs)}')
 
 if __name__ == "__main__":
 	main()
