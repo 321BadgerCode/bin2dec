@@ -117,9 +117,9 @@ vector<int> NeuralNetwork::binaryToOneHot(const vector<int>& binaryInput) {
 	return oneHotInput;
 }
 
-void NeuralNetwork::train(const vector<vector<int>>& binaryInputs,
-						  const vector<int>& decimalOutputs,
-						  int epochs, double learningRate) {
+void NeuralNetwork::train(	const vector<vector<int>>& binaryInputs,
+				const vector<int>& decimalOutputs,
+				int epochs, double learningRate) {
 	for (int epoch = 0; epoch < epochs; ++epoch) {
 		double totalError = 0.0;
 		for (size_t i = 0; i < binaryInputs.size(); ++i) {
